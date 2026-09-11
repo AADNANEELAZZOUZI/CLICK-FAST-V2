@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bac à sable — Mini Click Fast!</title>
+<link rel="stylesheet" href="sandbox.css">
+</head>
+<body>
+
+  <h1>Click Fast!</h1>
+
+  <!-- Visible en premier -->
+  <section id="view-config" class="view">
+    <h2>Configuration</h2>
+
+    <form id="config-form">
+      <label for="pseudo">Pseudo</label>
+      <input type="text" id="pseudo" maxlength="20" placeholder="2 à 20 caractères">
+      <p id="pseudo-error" class="error"></p>
+
+      <p>Mode</p>
+      <div id="mode-group" class="pill-group">
+        <button type="button" class="pill active" data-value="classique">Classique</button>
+        <button type="button" class="pill" data-value="precision">Précision</button>
+      </div>
+
+      <p>Durée</p>
+      <div id="duration-group" class="pill-group">
+        <button type="button" class="pill active" data-value="10">10s</button>
+        <button type="button" class="pill" data-value="20">20s</button>
+        <button type="button" class="pill" data-value="30">30s</button>
+      </div>
+
+      <p>Difficulté</p>
+      <div id="difficulty-group" class="pill-group">
+        <button type="button" class="pill" data-value="facile">Facile</button>
+        <button type="button" class="pill active" data-value="moyenne">Moyenne</button>
+        <button type="button" class="pill" data-value="difficile">Difficile</button>
+      </div>
+
+      <button type="submit" id="start-btn" class="btn-primary">Lancer la partie</button>
+    </form>
+  </section>
+
+  <!-- Caché au départ, révélé après soumission du formulaire -->
+  <section id="view-game" class="view" hidden>
+    <div id="hud">
+      <span>Score : <span id="score">0</span></span>
+      <span>Temps : <span id="time">10</span>s</span>
+      <span>Ratés : <span id="misses">0</span></span>
+      <span>Précision : <span id="accuracy">—</span></span>
+      <span>Meilleur score : <span id="best-score">0</span></span>
+    </div>
+
+    <div id="arena">
+      <button id="target"></button>
+    </div>
+
+    <button id="start">Démarrer</button>
+
+    <p id="result-message"></p>
+
+    <h2 id="history-title">Historique (5 dernières parties)</h2>
+    <ul id="history"></ul>
+  </section>
+
+  <script src="main.js"></script>
+</body>
+</html>
