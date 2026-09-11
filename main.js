@@ -143,4 +143,8 @@ function mettreAJourMeilleurScore() {
 
   afficherMeilleurScore();
 }
+function afficherMeilleurScore() {
+  const bestScoreActuel = Number(localStorage.getItem('bestScore')) || 0;
+  bestScoreDisplay.textContent = bestScoreActuel;
+}
 
