@@ -121,3 +121,16 @@ btnDemarrer.addEventListener('click', () => {
     }
   }, 1000);
 });
+function arreterPartie() {
+  clearInterval(timerId);
+  timerId = null;
+  isRunning = false;
+
+  target.style.display = 'none';
+  btnDemarrer.textContent = 'Démarrer';
+
+  resultMessage.textContent = 'Votre score final est : ' + score;
+
+  mettreAJourMeilleurScore();
+  ajouterAHistorique();
+}
