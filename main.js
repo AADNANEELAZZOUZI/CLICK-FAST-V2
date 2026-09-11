@@ -1,65 +1,51 @@
-let target = document.getElementById('target');
-let champDeplacement = document.getElementById('arena').clientWidth;
+const target = document.getElementById('target');
+const arena = document.getElementById('arena');
+const btnDemarrer = document.getElementById('start');
+const counter = document.getElementById('time');
+const scoreDisplay = document.getElementById('score');
+const missesDisplay = document.getElementById('misses');
+const accuracyDisplay = document.getElementById('accuracy');
+const bestScoreDisplay = document.getElementById('best-score');
+const resultMessage = document.getElementById('result-message');
+const historyList = document.getElementById('history');
+
+const configForm = document.getElementById('config-form');
+const viewConfig = document.getElementById('view-config');
+const viewGame = document.getElementById('view-game');
+
 let score = 0;
-let btnDemarrer = document.getElementById('start');
-let counter = document.getElementById('time');
-let scoreFinal = document.getElementById('score');
-let gameContainer = document.getElementById('view-game');
-let configContainer = document.getElementById('view-config');
-let configForm = document.getElementById('config-form');
+let misses = 0;
+let temps = 10;
+let timerId = null;
+let isRunning = false;
 
+let selectedMode = 'classique';
+let selectedDuration = 10;
+let selectedDifficulty = 'moyenne';
 
-
+const TARGET_SIZES = { facile: 80, moyenne: 60, difficile: 40 };
 
 target.style.display = 'none';
-target.addEventListener('click',() => {
-        var i = Math.floor(Math.random()*(champDeplacement - 50));
-    var j = Math.floor(Math.random()*(champDeplacement - 50));
-    target.style.left = i+"px";
-    target.style.top = j+"px";
-    score++;
-    document.getElementById('score').textContent = score;
+
+document.querySelectorAll('.pill-group').forEach(group => {
+  group.querySelectorAll('.pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      group.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+
+      if (group.id === 'mode-group') selectedMode = pill.dataset.value;
+      if (group.id === 'duration-group') selectedDuration = Number(pill.dataset.value);
+      if (group.id === 'difficulty-group') selectedDifficulty = pill.dataset.value;
+    });
+  });
 });
 
-btnDemarrer.addEventListener('click', () => {
+configForm.addEventListener('submit', (e) => {
+  e.preventDefault();
 
-    if (btnDemarrer.textContent === 'arrêter') {
+  viewConfig.hidden = true;
+  viewGame.hidden = false;
 
-        clearInterval(timer);
-        target.style.display = 'none';
-        btnDemarrer.textContent = 'démarrer';
-
-    } else {
-
-        score = 0;
-        temps = 10;
-
-        document.getElementById('score').textContent = score;
-        counter.textContent = temps;
-
-        target.style.display = 'block';
-        btnDemarrer.textContent = 'arrêter';
-
-        timer = setInterval(() => {
-
-            temps--;
-
-            counter.textContent = temps;
-
-            if (temps === 0) {
-
-                clearInterval(timer);
-
-                target.style.display = 'none';
-                btnDemarrer.textContent = 'démarrer';
-                scoreFinal.textContent = "Votre score final est : " + score;
-                let bestScore = localStorage.setItem('bestScore',score);
-                if (score = null || score > Number(bestScore)) {
-                    localStorage.setItem('bestScore', score);
-                    document.getElementById('best-score').textContent = score;
-                }
-            }
-
-        }, 1000);
-    }
+  afficherMeilleurScore();
+  afficherHistorique();
 });
