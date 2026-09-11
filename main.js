@@ -134,3 +134,13 @@ function arreterPartie() {
   mettreAJourMeilleurScore();
   ajouterAHistorique();
 }
+function mettreAJourMeilleurScore() {
+  const bestScoreActuel = Number(localStorage.getItem('bestScore')) || 0;
+
+  if (score > bestScoreActuel) {
+    localStorage.setItem('bestScore', score);
+  }
+
+  afficherMeilleurScore();
+}
+
