@@ -62,3 +62,62 @@ function placerCible() {
   target.style.left = i + 'px';
   target.style.top = j + 'px';
 }
+target.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (!isRunning) return;
+
+  score++;
+  scoreDisplay.textContent = score;
+  placerCible();
+  mettreAJourPrecision();
+});
+
+arena.addEventListener('click', () => {
+  if (!isRunning) return;
+
+  if (selectedMode === 'precision') {
+    misses++;
+    missesDisplay.textContent = misses;
+    mettreAJourPrecision();
+  }
+});
+
+function mettreAJourPrecision() {
+  if (selectedMode !== 'precision') {
+    accuracyDisplay.textContent = '—';
+    return;
+  }
+  const total = score + misses;
+  const precision = total === 0 ? 0 : Math.round((score / total) * 1000) / 10;
+  accuracyDisplay.textContent = precision + '%';
+}
+
+btnDemarrer.addEventListener('click', () => {
+  if (isRunning) {
+    arreterPartie();
+    return;
+  }
+  score = 0;
+  misses = 0;
+  temps = selectedDuration;
+  isRunning = true;
+
+  scoreDisplay.textContent = score;
+  missesDisplay.textContent = misses;
+  accuracyDisplay.textContent = selectedMode === 'precision' ? '0%' : '—';
+  counter.textContent = temps;
+  resultMessage.textContent = '';
+
+  target.style.display = 'block';
+  btnDemarrer.textContent = 'Arrêter';
+  placerCible();
+
+  timerId = setInterval(() => {
+    temps--;
+    counter.textContent = temps;
+
+    if (temps <= 0) {
+      arreterPartie();
+    }
+  }, 1000);
+});
