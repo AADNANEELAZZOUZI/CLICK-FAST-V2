@@ -49,3 +49,16 @@ configForm.addEventListener('submit', (e) => {
   afficherMeilleurScore();
   afficherHistorique();
 });
+function placerCible() {
+  const taille = TARGET_SIZES[selectedDifficulty];
+  target.style.width = taille + 'px';
+  target.style.height = taille + 'px';
+
+  const champDeplacement = arena.clientWidth;
+
+  const i = Math.floor(Math.random() * (champDeplacement - taille));
+  const j = Math.floor(Math.random() * (champDeplacement - taille));
+
+  target.style.left = i + 'px';
+  target.style.top = j + 'px';
+}
