@@ -161,3 +161,16 @@ function ajouterAHistorique() {
 }
 
 
+
+
+function afficherHistorique() {
+  const historique = JSON.parse(localStorage.getItem('history') || '[]');
+
+  historyList.innerHTML = '';
+
+  historique.slice().reverse().forEach(partie => {
+    const li = document.createElement('li');
+    li.textContent = `${partie.score} pts — ${partie.mode} / ${partie.difficulte}`;
+    historyList.appendChild(li);
+  });
+}
