@@ -147,4 +147,17 @@ function afficherMeilleurScore() {
   const bestScoreActuel = Number(localStorage.getItem('bestScore')) || 0;
   bestScoreDisplay.textContent = bestScoreActuel;
 }
+function ajouterAHistorique() {
+  let historique = JSON.parse(localStorage.getItem('history') || '[]');
+
+  historique.push({ score: score, mode: selectedMode, difficulte: selectedDifficulty });
+
+  if (historique.length > 5) {
+    historique.shift();
+  }
+
+  localStorage.setItem('history', JSON.stringify(historique));
+  afficherHistorique();
+}
+
 
