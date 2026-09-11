@@ -1,8 +1,6 @@
-
-Sandbox · CSS
 body {
-  background: #0b0d12;
-  color: #edeff3;
+  background: linear-gradient(to bottom, #0b0d12, #440244);
+  color: gray;
   font-family: sans-serif;
   text-align: center;
   padding: 2rem;
